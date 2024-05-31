@@ -12,7 +12,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -23,10 +27,10 @@ a:hover {
 }
 
 body {
+  width: 100%;
+  background-color: white;
+  color: black;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
 }
 
