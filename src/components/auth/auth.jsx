@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { auth, googleProvider } from "../../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import './Auth.scss';
 
 export const Auth = () => {
     const [email, setEmail] = useState("");
@@ -24,13 +25,6 @@ export const Auth = () => {
         }
     };
 
-    const logout = async () => {
-        try{
-        await signOut(auth);
-        } catch(err) {
-            console.log(err);
-        }
-    };
 
     return (
         <div>
@@ -39,7 +33,6 @@ export const Auth = () => {
             <button onClick={signIn}>Sign in</button>
 
             <button onClick={signInWithGoogle}>Sign in with Google</button>
-            <button onClick={logout}>Logout</button>
             
         </div>
     );
