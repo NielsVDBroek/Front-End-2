@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 
 export const Auth = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -11,6 +13,7 @@ export const Auth = () => {
     const signIn = async () => {
         try{
         await createUserWithEmailAndPassword(auth, email, password);
+        navigate("/");
         } catch(err) {
             console.log(err);
         }
@@ -19,6 +22,7 @@ export const Auth = () => {
     const signInWithGoogle = async () => {
         try{
         await signInWithPopup(auth, googleProvider);
+        navigate("/");
         } catch(err) {
             console.log(err);
         }

@@ -6,6 +6,7 @@ import { db } from './config/firebase'
 import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import MainHeader from './components/mainHeader/MainHeader'
 import Posts from './components/posts/Posts'
+import Account from './components/account/Account';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Posts/>}/>
           <Route path="/login" element={<Auth/>}/>
+          <Route path="/account" element={<Account/>}/>
         </Routes>
       </main>
     </>
