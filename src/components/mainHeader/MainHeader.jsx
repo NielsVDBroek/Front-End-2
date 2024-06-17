@@ -10,7 +10,6 @@ function MainHeader() {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
     });
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
 
@@ -20,8 +19,15 @@ function MainHeader() {
         <Link to={'/'}>Home</Link>
       </div>
       <div>
-        {currentUser ? <Link to={'/account'}>{currentUser.displayName}</Link> : <Link to={'/login'}>Login</Link>}
+        {currentUser ? (
+          <Link to={'/account'}>
+            {currentUser.displayName ? currentUser.displayName : currentUser.email}
+          </Link>
+        ) : (
+          <Link to={'/login'}>Login</Link>
+        )}
       </div>
+
     </header>
   );
 }

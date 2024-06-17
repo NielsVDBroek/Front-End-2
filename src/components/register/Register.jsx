@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { auth, googleProvider } from "../../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
-import './Auth.scss';
+import './Register.scss';
 
-export const Auth = () => {
+export const Register = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -12,6 +15,7 @@ export const Auth = () => {
     const signIn = async () => {
         try{
         await createUserWithEmailAndPassword(auth, email, password);
+        navigate("/");
         } catch(err) {
             console.log(err);
         }
@@ -20,6 +24,7 @@ export const Auth = () => {
     const signInWithGoogle = async () => {
         try{
         await signInWithPopup(auth, googleProvider);
+        navigate("/");
         } catch(err) {
             console.log(err);
         }
@@ -28,14 +33,15 @@ export const Auth = () => {
 
     return (
         <div>
-            <input placeholder="Email..." type="email" onChange={(e) => setEmail(e.target.value)}/>
-            <input placeholder="Password..." type="password" onChange={(e) => setPassword(e.target.value)}/>
+            <input placeholder="Email..." type="email" onChange={(e) => setEmail(e.target.value)} required/>
+            <input placeholder="Password..." type="password" onChange={(e) => setPassword(e.target.value)} required/>
             <button onClick={signIn}>Sign in</button>
-
             <button onClick={signInWithGoogle}>Sign in with Google</button>
+
+            <Link to={'/login'}>Al een account? Login.</Link>
             
         </div>
     );
 };
 
-export default Auth;
+export default Register;
