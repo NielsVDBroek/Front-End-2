@@ -33,11 +33,11 @@ export const Register = () => {
 
     return (
         <div>
-            <input placeholder="Email..." type="email" onChange={(e) => setEmail(e.target.value)}/>
-            <input placeholder="Password..." type="password" onChange={(e) => setPassword(e.target.value)}/>
+            <input placeholder="Email..." type="email" onChange={(e) => setEmail(e.target.value)} required/>
+            <input placeholder="Password..." type="password" onChange={(e) => setPassword(e.target.value)} required/>
             <button onClick={signIn}>Sign in</button>
-
             <button onClick={signInWithGoogle}>Sign in with Google</button>
+
             <Link to={'/login'}>Al een account? Login.</Link>
             
         </div>

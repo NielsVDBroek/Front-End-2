@@ -24,7 +24,7 @@ function MainHeader() {
             {currentUser.displayName ? currentUser.displayName : currentUser.email}
           </Link>
         ) : (
-          <Link to={'/register'}>Login</Link>
+          <Link to={'/login'}>Login</Link>
         )}
       </div>
 
