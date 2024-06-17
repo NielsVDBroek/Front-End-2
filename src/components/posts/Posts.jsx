@@ -4,6 +4,7 @@ import { auth } from '../../config/firebase';
 import { db } from '../../config/firebase';
 import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
 
+
 function Posts(){
     const [postsList, setPostsList] = useState([]);
 
@@ -79,8 +80,20 @@ function Posts(){
     return(
         <div>
           <div>
-            <input type="text" placeholder='Post content...' onChange={(e) => setNewPostContent(e.target.value)}/>
-            <button onClick={createPost}>Submit</button>
+            <button className="btn" onClick={()=>document.getElementById('my_modal_1').showModal()}>Maak post</button>
+            <dialog id="my_modal_1" className="modal" >
+              <div className="modal-box">
+                <h3 className="font-bold text-lg">Hello!</h3>
+                <p className="py-4">Maak je post</p>
+                <div className="modal-action">
+                  <form method="dialog" className='post-form'>
+                    <input type="text" placeholder='Post content...' onChange={(e) => setNewPostContent(e.target.value)}/>
+                    <button className="btn">Close</button>
+                    <button onClick={createPost}>Post</button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
           </div>
           <div>
             {postsList.map((posts) => (
@@ -95,6 +108,7 @@ function Posts(){
             ))}
           </div>
         </div>
+        
         
     )
 
