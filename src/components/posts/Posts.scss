@@ -1,9 +1,16 @@
-.post-item{
+.Container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    height: auto;
+    gap: 10px;
+}
+.post-item-container{
     display: flex;
     flex-direction: column;
-    padding: 15px;
-    border: solid 1px black;
-    border-radius: 15px;
+    width: 85%;
+
 }
 #my_modal_1{
     margin: auto;
@@ -13,4 +20,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+.btn{
+    margin-bottom: 10px;
 }
