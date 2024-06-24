@@ -18,7 +18,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigate("/");
+        navigate("/account");
         console.log(user);
       })
       .catch((error) => {
@@ -31,7 +31,7 @@ const Login = () => {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate("/");
+      navigate("/account");
     } catch (err) {
       console.log(err);
     }

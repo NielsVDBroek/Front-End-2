@@ -28,6 +28,43 @@ function Account() {
     }
   };
 
+    // const [newAccountUsername, setNewAccountUsername] = useState("");
+
+    // const accountCollectionRef = collection(db, "user_info")
+
+    // useEffect(() => {
+    //   }, [])
+
+    // const initializeAccountInfo = async () => {
+    //     const user_id = auth?.currentUser?.uid;
+    //     if (!user_id) {
+    //         console.error("User is not authenticated");
+    //         return;
+    //     }
+
+    //     if (newAccountUsername == "") {
+    //       console.error("Content is empty");
+    //       return;
+    //   }
+
+    //     try {
+    //         await addDoc(accountCollectionRef, {
+    //             user_id: user_id,
+    //             user_name: "test", //string
+    //             //user_photo: "test", //foto
+    //             //user_bio: "test", //string
+    //             //user_follows: "test", //array met user_id
+    //             //user_blocked: "test", //array met user_id
+    //             user_private: false, //standaard false
+    //             user_role: "user", // standaard user
+
+    //         });
+    //         setNewAccountUsername("");
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // };
+
   return(
     <div>
       <div>
@@ -36,6 +73,7 @@ function Account() {
       <div>
         Email: {currentUser?.email}
       </div>
+
       <button onClick={logout}>Logout</button>
     </div>
   );
