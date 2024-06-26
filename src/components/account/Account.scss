@@ -1,0 +1,72 @@
+.Account-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.Container-user{
+ display: flex;
+ flex-direction: column;
+ border: solid 1px black;
+ width: 50%;
+}
+.back-bar{
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+}
+
+.Userinfo{
+ padding: 10px;
+}
+.Banner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px black;
+    margin-bottom: 10px;
+    height: 200px;
+}
+.Username{
+
+}
+.Email{
+
+}
+.Logout-btn{
+    width: 10%;
+}
+.Back-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 1em;
+    background-color: white;
+    margin: 10px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    width: 40px;
+    height: 40px;
+} 
+
+.Logout-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 1em;
+    background-color: white;
+    margin: 10px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    width: 10%;
+    height: auto;
+}
