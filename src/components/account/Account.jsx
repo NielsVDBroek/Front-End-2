@@ -50,7 +50,7 @@ function Account() {
         <button className="Logout-btn" onClick={logout}>Logout</button>
       </div>
       <div className="Container-posts">
-        //laat hier de posts van de gebruiker zien
+        {/* //laat hier de posts van de gebruiker zien */}
       </div>
     </div>
   );
