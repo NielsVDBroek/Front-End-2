@@ -21,7 +21,7 @@ export const Register = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigate("/");
+        navigate("/account");
         console.log(user);
       })
       .catch((error) => {
@@ -34,7 +34,7 @@ export const Register = () => {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate("/");
+      navigate("/account");
     } catch (err) {
       console.log(err);
     }
