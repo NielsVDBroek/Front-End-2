@@ -1,5 +1,5 @@
 input{
-    width: auto;
+    width: 100%;
     height: 45px;
     background-color: #F9F9F9;
     color: black;
@@ -12,3 +12,25 @@ input{
     font-size: 1em;
     color: black;
   }
+.Inlog-label{
+    display: flex;
+    justify-content: center;
+}
+.container-regristreren{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.Registrer-container{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.Register-fields{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
