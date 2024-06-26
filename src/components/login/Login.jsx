@@ -2,11 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { auth, googleProvider } from "../../config/firebase";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
+import {getAuth, signInWithEmailAndPassword, signInWithPopup,} from "firebase/auth";
+import './Login.scss';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,7 +37,17 @@ const Login = () => {
   return (
     <>
       <main>
+        <div className="container-Login">
+        <button className="Login-button-option" onClick={signInWithGoogle}>Sign in with Google</button>
+        <div className="Divider-login-buttons-container">
+          <div className="Divider-login-buttons"></div>
+          <p>of</p>
+          <div className="Divider-login-buttons"></div>
+        </div>
+        <button className="Login-button-option" onClick={() => navigate("/register")}>Account aanmaken</button>
         <div>
+          <h3>Heb je al een account?</h3>
+        </div>
           <form>
             <div>
               <label htmlFor="email-address">Email address</label>
@@ -70,11 +77,6 @@ const Login = () => {
               <button onClick={onLogin}>Login</button>
             </div>
           </form>
-          <button onClick={signInWithGoogle}>Sign in with Google</button>
-
-          <p className="text-sm text-white text-center">
-            <Link to={"/register"}>Nog geen account? Registreer hier.</Link>
-          </p>
         </div>
       </main>
     </>
