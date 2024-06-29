@@ -43,10 +43,10 @@ export const Register = () => {
   return (
     <>
       <main>
-        <div>
-          <form>
-            <div>
-              <label htmlFor="email-address">Email address</label>
+        <div className="container-regristreren">
+          <form className="Registrer-container">
+            <h1 className="Inlog-label">Inloggen</h1>
+            <div className="Register-fields">
               <input
                 id="email-address"
                 name="email"
@@ -57,8 +57,7 @@ export const Register = () => {
               />
             </div>
 
-            <div>
-              <label htmlFor="password">Password</label>
+            <div className="Register-fields">
               <input
                 id="password"
                 name="password"
@@ -73,13 +72,6 @@ export const Register = () => {
               <button onClick={signIn}>Registreren</button>
             </div>
           </form>
-          <button onClick={signInWithGoogle}>Sign in with Google</button>
-
-          <p className="text-sm text-white text-center">
-            <Link to={"/login"}>
-              Al een account? Klik hier om in te loggen.
-            </Link>
-          </p>
         </div>
       </main>
     </>
