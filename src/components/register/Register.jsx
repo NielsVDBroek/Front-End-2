@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { auth, googleProvider } from "../../config/firebase";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { auth, googleProvider } from '../../config/firebase';
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   signOut,
-} from "firebase/auth";
-import "./Register.scss";
+} from 'firebase/auth';
+import './Register.scss';
 
 export const Register = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   console.log(auth?.currentUser?.email);
 
@@ -21,7 +21,7 @@ export const Register = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigate("/account");
+        navigate('/finalize-account');
         console.log(user);
       })
       .catch((error) => {
@@ -34,7 +34,7 @@ export const Register = () => {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate("/account");
+      navigate('/finalize-account');
     } catch (err) {
       console.log(err);
     }
@@ -71,6 +71,7 @@ export const Register = () => {
             <div>
               <button onClick={signIn}>Registreren</button>
             </div>
+            <button onClick={signInWithGoogle}>Sign in with Google</button>
           </form>
         </div>
       </main>
