@@ -8,7 +8,7 @@ import Post from '../post/Post';
 function Posts() {
     const [postsList, setPostsList] = useState([]);
     const [newPostContent, setNewPostContent] = useState("");
-    const [newPostImage, setNewPostImage] = useState(null);
+    const [newPostFile, setNewPostFile] = useState(null);
 
     const postsCollectionRef = collection(db, "posts");
 
@@ -47,24 +47,28 @@ function Posts() {
             return;
         }
 
-        let imageUrl = null;
-        if (newPostImage) {
-            const imageRef = ref(storage, `images/${newPostImage.name}-${Date.now()}`);
-            await uploadBytes(imageRef, newPostImage);
-            imageUrl = await getDownloadURL(imageRef);
+        let fileUrl = null;
+        let fileType = null;
+
+        if (newPostFile) {
+            const fileRef = ref(storage, `uploads/${newPostFile.name}-${Date.now()}`);
+            await uploadBytes(fileRef, newPostFile);
+            fileUrl = await getDownloadURL(fileRef);
+            fileType = newPostFile.type.split('/')[0]; // "image" or "video"
         }
 
         try {
             await addDoc(postsCollectionRef, {
                 user_id: user_id,
                 content: newPostContent,
-                image_url: imageUrl,
+                file_url: fileUrl,
+                file_type: fileType,
                 likes: 0,
                 comments: 0,
                 date_of_creation: date.toISOString(),
             });
             setNewPostContent("");
-            setNewPostImage(null);
+            setNewPostFile(null);
             getPostsList();
         } catch (err) {
             console.error(err);
@@ -82,7 +86,7 @@ function Posts() {
                         <div className="modal-action">
                             <form method="dialog" className='post-form'>
                                 <input type="text" value={newPostContent} placeholder='Post content...' onChange={(e) => setNewPostContent(e.target.value)} />
-                                <input type="file" accept="image/*" onChange={(e) => setNewPostImage(e.target.files[0])} />
+                                <input type="file" accept="image/*,video/*" onChange={(e) => setNewPostFile(e.target.files[0])} />
                                 <button className="btn">Close</button>
                                 <button type="button" onClick={createPost}>Post</button>
                             </form>
