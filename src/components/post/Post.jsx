@@ -53,8 +53,9 @@ function Post({ post, onPostUpdate, onPostDelete }) {
 
     return (
         <div className="post-item">
-            {post.content ? <div>{post.content}</div> : null}
-            {post.image_url && <img src={post.image_url} alt="Post image" />}
+            {post.content && <div>{post.content}</div>}
+            {post.file_url && post.file_type === "image" && <img src={post.file_url} alt="Post media" />}
+            {post.file_url && post.file_type === "video" && <video src={post.file_url} controls />}
             <div className='Button-container'>
                 {post.user_id === auth?.currentUser?.uid && !isEditing && (
                     <button className='Btnpost' onClick={() => { setIsEditing(true); }}>Edit</button>
