@@ -33,6 +33,8 @@
     height: 60%;
     margin: auto;
     padding: 25px;
+    background-color: #ffffff;
+    border-color: black;
 }
 .modal-box{
     padding: 50px;
@@ -41,6 +43,7 @@
     display: flex;
     justify-content: center;
     padding-bottom: 10px;
+    color: black;
 }
 .Login-input-fields{
     display: flex;
@@ -55,5 +58,8 @@
 }
 #email-address{
     width: 60%;
+}
+label{
+    color: black;
 }
 

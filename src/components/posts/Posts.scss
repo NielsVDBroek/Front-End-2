@@ -15,6 +15,12 @@
 #my_modal_1{
     margin: auto;
     padding: 25px;
+    background-color: #f9f9f9;
+    background-color: #ffffff;
+    border-color: black;
+}
+.modal-box{
+    color: black;
 }
 .post-form{
     display: flex;
@@ -23,4 +29,21 @@
 }
 .btn{
     margin-bottom: 10px;
+
 }
+.side-bar{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.edit-menu{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+.media-size{
+    width: 50%;
+    height: auto;
+}
+

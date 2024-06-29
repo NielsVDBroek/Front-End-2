@@ -5,12 +5,15 @@
     border: solid 1px black;
     border-radius: 15px;
     margin-bottom: 10px;
+    gap: 10px;
 }
 .Button-container{
     display: flex;
     flex-direction: row;
-    width: 100%;
 }
-.Btnpost{
+.user-buttons2332{
+    display: flex;
+    flex-direction: row;
     width: 100%;
+    gap: 10px;
 }

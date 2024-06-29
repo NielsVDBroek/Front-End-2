@@ -68,7 +68,7 @@ export const Register = () => {
               />
             </div>
 
-            <div>
+            <div className="Register-fields">
               <button onClick={signIn}>Registreren</button>
             </div>
           </form>
