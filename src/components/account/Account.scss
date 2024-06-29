@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 3em;
 }
 .Container-user{
  display: flex;
@@ -69,4 +70,8 @@
     transition: border-color 0.25s;
     width: 10%;
     height: auto;
+}
+
+.Container-posts{
+    width: 50%;
 }

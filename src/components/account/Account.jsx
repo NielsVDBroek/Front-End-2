@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../config/firebase";
+import { auth, db } from '../../config/firebase';
 import { signOut } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import Post from '../post/Post';
 import './Account.scss';
-
 
 function Account() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
-  
+  const [userPostsList, setUserPostsList] = useState([]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -22,6 +22,12 @@ function Account() {
     return () => unsubscribe();
   }, [navigate]);
 
+  useEffect(() => {
+    if (currentUser) {
+      getUserPostsList(currentUser.uid);
+    }
+  }, [currentUser]);
+
   const logout = async () => {
     try {
       await signOut(auth);
@@ -31,44 +37,23 @@ function Account() {
     }
   };
 
-    // const [newAccountUsername, setNewAccountUsername] = useState("");
+  const getUserPostsList = async (uid) => {
+    try {
+      const q = query(collection(db, "posts"), where("user_id", "==", uid));
+      const querySnapshot = await getDocs(q);
+      
+      const postsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      setUserPostsList(postsData);
+    } catch (err) {
+      console.error("Error fetching user posts: ", err);
+    }
+  };
 
-    // const accountCollectionRef = collection(db, "user_info")
-
-    // useEffect(() => {
-    //   }, [])
-
-    // const initializeAccountInfo = async () => {
-    //     const user_id = auth?.currentUser?.uid;
-    //     if (!user_id) {
-    //         console.error("User is not authenticated");
-    //         return;
-    //     }
-
-    //     if (newAccountUsername == "") {
-    //       console.error("Content is empty");
-    //       return;
-    //   }
-
-    //     try {
-    //         await addDoc(accountCollectionRef, {
-    //             user_id: user_id,
-    //             user_name: "test", //string
-    //             //user_photo: "test", //foto
-    //             //user_bio: "test", //string
-    //             //user_follows: "test", //array met user_id
-    //             //user_blocked: "test", //array met user_id
-    //             user_private: false, //standaard false
-    //             user_role: "user", // standaard user
-
-    //         });
-    //         setNewAccountUsername("");
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // };
-
-  return(
+  return (
     <div className="Account-container">
       <div className="Container-user">
         <div className="back-bar">
@@ -87,9 +72,10 @@ function Account() {
         <button className="Logout-btn" onClick={logout}>Logout</button>
       </div>
       <div className="Container-posts">
-        {/* //laat hier de posts van de gebruiker zien */}
+        {userPostsList.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
       </div>
-
     </div>
   );
 }
