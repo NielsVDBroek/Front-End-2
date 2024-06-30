@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from '../../config/firebase';
+import { auth, db, storage } from '../../config/firebase';
 import { signOut } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Post from '../post/Post';
 import './Account.scss';
 
@@ -10,11 +11,20 @@ function Account() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [userPostsList, setUserPostsList] = useState([]);
+  const [userInfo, setUserInfo] = useState({
+    user_name: '',
+    user_photo: '',
+    bio: '',
+    private: false,
+  });
+  const [userPhotoFile, setUserPhotoFile] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      if (!user) {
+      if (user) {
+        fetchUserInfo(user.uid);
+      } else {
         console.log("User not logged in");
         navigate("/login");
       }
@@ -27,6 +37,57 @@ function Account() {
       getUserPostsList(currentUser.uid);
     }
   }, [currentUser]);
+
+  const fetchUserInfo = async (uid) => {
+    try {
+      const userDoc = await getDoc(doc(db, "user_info", uid));
+      if (userDoc.exists()) {
+        setUserInfo(userDoc.data());
+      } else {
+        navigate('/finalize-account');
+      }
+    } catch (err) {
+      console.error("Error fetching user info: ", err);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo((prevInfo) => ({
+      ...prevInfo,
+      [name]: value,
+    }));
+  };
+
+  const handlePhotoChange = (e) => {
+    if (e.target.files[0]) {
+      setUserPhotoFile(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const userId = currentUser.uid;
+    let photoURL = userInfo.user_photo;
+
+    if (userPhotoFile) {
+      const storageRef = ref(storage, `user_photos/${userId}`);
+      await uploadBytes(storageRef, userPhotoFile);
+      photoURL = await getDownloadURL(storageRef);
+    }
+
+    try {
+      await updateDoc(doc(db, "user_info", userId), {
+        user_name: userInfo.user_name,
+        user_photo: photoURL,
+        bio: userInfo.bio,
+        private: userInfo.private,
+      });
+      alert("Information updated successfully!");
+    } catch (err) {
+      console.error("Error updating user info: ", err);
+    }
+  };
 
   const logout = async () => {
     try {
@@ -68,6 +129,49 @@ function Account() {
           <div className="Email">
             {currentUser?.email}
           </div>
+          {userInfo && (
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label>Name:</label>
+                <input
+                  type="text"
+                  name="user_name"
+                  value={userInfo.user_name}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Photo:</label>
+                <input
+                  type="file"
+                  onChange={handlePhotoChange}
+                />
+                {userInfo.user_photo && <img src={userInfo.user_photo} alt="User" style={{ width: '50px', height: '50px' }} />}
+              </div>
+              <div>
+                <label>Bio:</label>
+                <textarea
+                  name="bio"
+                  value={userInfo.bio}
+                  onChange={handleInputChange}
+                ></textarea>
+              </div>
+              <div>
+                <label>Private Account:</label>
+                <input
+                  type="checkbox"
+                  name="private"
+                  checked={userInfo.private}
+                  onChange={(e) => setUserInfo((prevInfo) => ({
+                    ...prevInfo,
+                    private: e.target.checked,
+                  }))}
+                />
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          )}
         </div>
         <button className="Logout-btn" onClick={logout}>Logout</button>
       </div>
