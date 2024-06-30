@@ -76,6 +76,9 @@
 
 .Container-posts-account{
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .accont-information-form{
     display: flex;
