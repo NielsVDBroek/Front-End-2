@@ -74,7 +74,7 @@ export const Register = () => {
             </div>
 
             <div className="Register-fields">
-              <button onClick={signIn}>Registreren</button>
+              <button id='cypress-test-submit-register' onClick={signIn}>Registreren</button>
             </div>
             <button type="button" onClick={signInWithGoogle}>Sign in with Google</button>
           </form>

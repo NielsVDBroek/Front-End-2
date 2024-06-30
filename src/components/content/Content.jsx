@@ -24,8 +24,8 @@ function Content() {
     return (
         <div data-testid="content-test" className='Container-content'> 
             <div className='side-bar'>
-                <button className="btn" onClick={() => setCurrentView('posts')}>Posts</button>
-                <button className="btn" onClick={() => setCurrentView('leaderboard')}>Leaderboard</button>
+                <button className="btn" id='switch-to-posts' onClick={() => setCurrentView('posts')}>Posts</button>
+                <button className="btn" id='switch-to-leaderboard' onClick={() => setCurrentView('leaderboard')}>Leaderboard</button>
             </div>
             {renderCurrentView()}
         </div>

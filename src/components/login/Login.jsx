@@ -45,9 +45,9 @@ const Login = () => {
               <p>of</p>
               <div className="Divider-login-buttons"></div>
             </div>
-            <button className="Login-button-option" onClick={() => navigate("/register")}>Account aanmaken</button>
+            <button id='cypress-test-register-button' className="Login-button-option" onClick={() => navigate("/register")}>Account aanmaken</button>
           </div>
-          <div className="account-login Login-account-button">
+          <div id="cypress-test-login-form-button" className="account-login Login-account-button">
             <h4>Heb je al een account?</h4>
 
             <button className="Login-button-option" onClick={() => document.getElementById('my_modal_2').showModal()}>Inloggen</button>
@@ -85,7 +85,7 @@ const Login = () => {
                     </div>
 
                     <div className="Login-modal-buttons">
-                      <button onClick={onLogin}>Login</button>
+                      <button id="cypress-test-login-form" onClick={onLogin}>Login</button>
                     </div>
                   </form>
                 </div>

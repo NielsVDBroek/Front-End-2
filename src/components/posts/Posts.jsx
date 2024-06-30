@@ -103,7 +103,7 @@ function Posts() {
                                     onChange={(e) => setNewPostFile(e.target.files[0])} 
                                 />
                                 <button className="btn" type="button" onClick={() => dialogRef.current.close()}>Close</button>
-                                <button type="submit">Post</button>
+                                <button id='cypress-test-submit-post' type="submit">Post</button>
                             </form>
                         </div>
                     </div>

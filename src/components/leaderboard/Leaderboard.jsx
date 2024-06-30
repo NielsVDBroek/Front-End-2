@@ -90,7 +90,7 @@ function Leaderboard() {
 return (
         <div data-testid="leaderboard-test" className='Container-leaderboard'>
             <div className='container-leader'>
-                <button className="add-entry-btn" onClick={() => dialogRef.current.showModal()}>Add Entry</button>
+                <button className="add-entry-btn" id='cypress-add-entry-button' onClick={() => dialogRef.current.showModal()}>Add Entry</button>
                 <dialog id="leaderboard_modal" className="modal" ref={dialogRef}>
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">Hello!</h3>
@@ -98,6 +98,7 @@ return (
                         <div className="modal-action">
                             <form method="dialog" className='entry-form' onSubmit={createEntry}>
                                 <input 
+                                    id='leaderboard-entry-time'
                                     type="text" 
                                     value={newEntryTime} 
                                     placeholder='hh:mm:ss' 
@@ -106,7 +107,7 @@ return (
                                     required
                                 />
                                 <button className="btn" type="button" onClick={() => dialogRef.current.close()}>Close</button>
-                                <button type="submit">Submit</button>
+                                <button id='leaderboard-submit-entry-button' type="submit">Submit</button>
                             </form>
                         </div>
                     </div>

@@ -52,6 +52,7 @@ const FinalizeAccount = () => {
         <div className='Name'>
           <label>Username:</label>
           <input
+            id='cypress-test-username-field'
             type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
@@ -75,7 +76,7 @@ const FinalizeAccount = () => {
             onChange={(e) => setPrivateAccount(e.target.checked)}
           />
         </div>
-        <button type="submit">Finalize Account</button>
+        <button id='finalize-account-button' type="submit">Finalize Account</button>
       </div>
     </form>
   );

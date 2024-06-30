@@ -16,7 +16,7 @@ function MainHeader() {
   return (
     <header data-testid="header-test" className="mainHeader">
         <div>
-        <Link to={'/'}>Home</Link>
+        <Link to={'/'} id='cypress-test-home-button'>Home</Link>
       </div>
       <div>
         {currentUser ? (
@@ -24,7 +24,7 @@ function MainHeader() {
             {currentUser.displayName ? currentUser.displayName : currentUser.email}
           </Link>
         ) : (
-          <Link to={'/login'}>Login</Link>
+          <Link to={'/login'} id='cypress-test-login-button'>Login</Link>
         )}
       </div>
 
