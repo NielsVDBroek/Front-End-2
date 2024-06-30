@@ -1,6 +1,7 @@
 import { useEffect, useState, createContext  } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.scss'
+import Content from './components/content/Content';
 import Register from './components/register/Register'
 import Login from './components/login/Login';
 import MainHeader from './components/mainHeader/MainHeader'
@@ -16,7 +17,7 @@ function App() {
       <MainHeader/>
       <main>
         <Routes>
-          <Route path="/" element={<Posts/>}/>
+          <Route path="/" element={<Content/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/finalize-account" element={<FinalizeAccount />} />
           <Route path="/login" element={<Login/>}/>
