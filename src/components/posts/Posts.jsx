@@ -4,14 +4,12 @@ import { auth, db, storage } from '../../config/firebase';
 import { getDocs, collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Post from '../post/Post';
-// import Ranglijst from '../ranglijst/Ranglijst';
 import { useNavigate } from "react-router-dom";
 
 function Posts() {
     const [postsList, setPostsList] = useState([]);
     const [newPostContent, setNewPostContent] = useState("");
     const [newPostFile, setNewPostFile] = useState(null);
-    const [currentView, setCurrentView] = useState('posts'); // Voeg een state toe om de huidige view bij te houden
     const dialogRef = useRef(null);
 
     const postsCollectionRef = collection(db, "posts");
@@ -61,7 +59,7 @@ function Posts() {
             const fileRef = ref(storage, `uploads/${newPostFile.name}-${Date.now()}`);
             await uploadBytes(fileRef, newPostFile);
             fileUrl = await getDownloadURL(fileRef);
-            fileType = newPostFile.type.split('/')[0]; // "image" or "video"
+            fileType = newPostFile.type.split('/')[0];
         }
 
         try {
@@ -77,32 +75,14 @@ function Posts() {
             setNewPostContent("");
             setNewPostFile(null);
             getPostsList();
-            dialogRef.current.close(); // Close the modal after successful submission
+            dialogRef.current.close();
         } catch (err) {
             console.error(err);
         }
     };
 
-    const renderCurrentView = () => {
-        if (currentView === 'posts') {
-            return (
-                <div className='post-item-container'>
-                    {postsList.map((post) => (
-                        <Post key={post.id} post={post} onPostUpdate={getPostsList} onPostDelete={getPostsList} />
-                    ))}
-                </div>
-            );
-        } else if (currentView === 'ranglijst') {
-            return <Ranglijst />;
-        }
-    };
-
     return (
         <div className='Container'> 
-            <div className='side-bar'>
-                <button className="btn" onClick={() => setCurrentView('posts')}>Posts</button>
-                <button className="btn" onClick={() => setCurrentView('ranglijst')}>Ranglijst</button>
-                <button className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>Maak post</button>
             <div>
                 <dialog id="my_modal_1" className="modal" ref={dialogRef}>
                     <div className="modal-box">
@@ -128,27 +108,13 @@ function Posts() {
                         </div>
                     </div>
                 </dialog>
+                <button className="btn" onClick={() => dialogRef.current.showModal()}>Maak post</button>
             </div>
             <div className='post-item-container'>
                 {postsList.map((post) => (
                     <Post key={post.id} post={post} onPostUpdate={getPostsList} onPostDelete={getPostsList} />
                 ))}
             </div>
-            <dialog id="my_modal_1" className="modal">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Hello!</h3>
-                    <p className="py-4">Maak je post</p>
-                    <div className="modal-action">
-                        <form method="dialog" className='post-form'>
-                            <input type="text" value={newPostContent} placeholder='Post content...' onChange={(e) => setNewPostContent(e.target.value)} />
-                            <input type="file" accept="image/*,video/*" onChange={(e) => setNewPostFile(e.target.files[0])} />
-                            <button className="btn">Close</button>
-                            <button type="button" onClick={createPost}>Post</button>
-                        </form>
-                    </div>
-                </div>
-            </dialog>
-            {renderCurrentView()}
         </div>
     );
 }
