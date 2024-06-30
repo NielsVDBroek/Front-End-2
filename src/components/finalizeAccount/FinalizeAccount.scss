@@ -1,0 +1,52 @@
+.finalize-account-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.container-account-form{
+    width: 40%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+}
+.Name{
+    width: 100%;
+}
+.Profile-picture{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+
+}
+.profile-picture-upload{
+    background-color: #f9f9f900;
+    padding: 0px;
+    height: auto;
+}
+.bio{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.bio-textarea{
+    width: 100%;
+    height: 100px;
+    resize: none;
+}
+.prive-option{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.private-checkbox{
+    width: 20px;
+    height: 20px;
+}

@@ -9,6 +9,7 @@ function Leaderboard() {
     const dialogRef = useRef(null);
 
     const leaderboardCollectionRef = collection(db, "leaderboard");
+    const usersCollectionRef = collection(db, "user_info");
 
     useEffect(() => {
         getLeaderboardList();
@@ -17,10 +18,16 @@ function Leaderboard() {
     const getLeaderboardList = async () => {
         try {
             const data = await getDocs(leaderboardCollectionRef);
-            const leaderboardData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            
+            let leaderboardData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+            leaderboardData = await Promise.all(leaderboardData.map(async (entry) => {
+                const userDoc = await getDocs(query(usersCollectionRef, where("user_id", "==", entry.user_id)));
+                const userData = userDoc.docs[0]?.data();
+                return { ...entry, username: userData?.user_name || "Unknown User" };
+            }));
+
             leaderboardData.sort((a, b) => a.time - b.time); // Sort by time in ascending order
-            
+
             setLeaderboardList(leaderboardData);
         } catch (err) {
             console.error(err);
@@ -45,10 +52,14 @@ function Leaderboard() {
         const newTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds;
 
         try {
+            const userDoc = await getDocs(query(usersCollectionRef, where("user_id", "==", user_id)));
+            const userData = userDoc.docs[0]?.data();
+            const username = userData?.username || "Unknown User";
+
             // Query to see if the user already has an entry
             const q = query(leaderboardCollectionRef, where("user_id", "==", user_id));
             const querySnapshot = await getDocs(q);
-            
+
             if (!querySnapshot.empty) {
                 // User has an existing entry
                 const existingEntry = querySnapshot.docs[0];
@@ -63,6 +74,7 @@ function Leaderboard() {
                 // User does not have an existing entry, create a new one
                 await addDoc(leaderboardCollectionRef, {
                     user_id: user_id,
+                    username: username,
                     time: newTimeInSeconds,
                 });
             }
@@ -103,7 +115,8 @@ function Leaderboard() {
             <div className='leaderboard-item-container'>
                 {leaderboardList.map((entry) => (
                     <div key={entry.id} className='leaderboard-item'>
-                        <p>User: {entry.user_id}</p>
+                        <p>User ID: {entry.user_id}</p>
+                        <p>Username: {entry.username}</p>
                         <p>Time: {Math.floor(entry.time / 3600)}:{String(Math.floor((entry.time % 3600) / 60)).padStart(2, '0')}:{String(entry.time % 60).padStart(2, '0')}</p>
                     </div>
                 ))}

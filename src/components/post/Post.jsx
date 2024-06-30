@@ -59,7 +59,7 @@ function Post({ post, onPostUpdate, onPostDelete }) {
 
             if (postSnapshot.exists() && postSnapshot.data().user_id === user_id) {
                 await deleteDoc(postDoc);
-                onPostDelete();
+                onPostDelete(id);
             } else {
                 console.error("You are not authorized to delete this post");
             }
