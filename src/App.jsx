@@ -10,6 +10,7 @@ import Account from './components/account/Account';
 import FinalizeAccount from './components/finalizeAccount/FinalizeAccount';
 import ViewAccount from './components/viewAccount/ViewAccount';
 import Leaderboard from './components/leaderboard/Leaderboard';
+import PageNotFound from './components/pageNotFound/PageNotFound';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/account" element={<Account/>}/>
           <Route path="/view-account/:userId" element={<ViewAccount />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
     </>
