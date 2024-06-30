@@ -77,21 +77,21 @@ function Post({ post, onPostUpdate, onPostDelete }) {
                     </Link>
                 )}
             </div>
-            {post.content && <div>{post.content}</div>}
-            {post.file_url && post.file_type === "image" && <img src={post.file_url} alt="Post media" />}
-            {post.file_url && post.file_type === "video" && <video src={post.file_url} controls />}
+            {post.content && <div className='Post-content'>{post.content}</div>}
+            {post.file_url && post.file_type === "image" && <img className='media-size' src={post.file_url} alt="Post media" />}
+            {post.file_url && post.file_type === "video" && <video className='media-size' src={post.file_url} controls />}
             <div className='Button-container'>
                 {post.user_id === auth?.currentUser?.uid && !isEditing && (
-                    <button className='Btnpost' onClick={() => { setIsEditing(true); }}>Edit</button>
+                    <div className='user-buttons2332'>
+                        <button className='Btnpost' onClick={() => { setIsEditing(true); }}>Edit</button>
+                        <button className='Btnpost' onClick={() => deletePost(post.id)}>Delete</button>
+                    </div>
                 )}
                 {isEditing && (
-                    <div>
+                    <div className='edit-menu'>
                         <input type="text" value={updatedPostContent} onChange={(e) => setUpdatedPostContent(e.target.value)} />
                         <button onClick={() => { updatePost(post.id, updatedPostContent); setIsEditing(false); }}>Save</button>
                     </div>
-                )}
-                {post.user_id === auth?.currentUser?.uid && (
-                    <button className='Btnpost' onClick={() => deletePost(post.id)}>Delete</button>
                 )}
             </div>
         </div>
