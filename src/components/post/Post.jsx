@@ -1,11 +1,28 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { auth, db } from '../../config/firebase';
 import { doc, deleteDoc, getDoc, updateDoc } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 import './Post.scss';
 
 function Post({ post, onPostUpdate, onPostDelete }) {
     const [isEditing, setIsEditing] = useState(false);
     const [updatedPostContent, setUpdatedPostContent] = useState(post.content);
+    const [authorInfo, setAuthorInfo] = useState(null);
+
+    useEffect(() => {
+        const fetchAuthorInfo = async () => {
+            try {
+                const authorDoc = await getDoc(doc(db, "user_info", post.user_id));
+                if (authorDoc.exists()) {
+                    setAuthorInfo(authorDoc.data());
+                }
+            } catch (err) {
+                console.error("Error fetching author info: ", err);
+            }
+        };
+
+        fetchAuthorInfo();
+    }, [post.user_id]);
 
     const updatePost = async (id, updatedContent) => {
         const user_id = auth?.currentUser?.uid;
@@ -53,6 +70,13 @@ function Post({ post, onPostUpdate, onPostDelete }) {
 
     return (
         <div className="post-item">
+            <div className="post-header">
+                {authorInfo && (
+                    <Link to={`/view-account/${post.user_id}`} className="username-link">
+                        {authorInfo.user_name}
+                    </Link>
+                )}
+            </div>
             {post.content && <div className='Post-content'>{post.content}</div>}
             {post.file_url && post.file_type === "image" && <img className='media-size' src={post.file_url} alt="Post media" />}
             {post.file_url && post.file_type === "video" && <video className='media-size' src={post.file_url} controls />}

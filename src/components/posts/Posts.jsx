@@ -1,5 +1,5 @@
 import './Posts.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { auth, db, storage } from '../../config/firebase';
 import { getDocs, collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -12,6 +12,7 @@ function Posts() {
     const [newPostContent, setNewPostContent] = useState("");
     const [newPostFile, setNewPostFile] = useState(null);
     const [currentView, setCurrentView] = useState('posts'); // Voeg een state toe om de huidige view bij te houden
+    const dialogRef = useRef(null);
 
     const postsCollectionRef = collection(db, "posts");
 
@@ -38,7 +39,8 @@ function Posts() {
         }
     };
 
-    const createPost = async () => {
+    const createPost = async (e) => {
+        e.preventDefault();
         const date = new Date();
         const user_id = auth?.currentUser?.uid;
 
@@ -75,6 +77,7 @@ function Posts() {
             setNewPostContent("");
             setNewPostFile(null);
             getPostsList();
+            dialogRef.current.close(); // Close the modal after successful submission
         } catch (err) {
             console.error(err);
         }
@@ -95,11 +98,41 @@ function Posts() {
     };
 
     return (
-        <div className='Container'>
+        <div className='Container'> 
             <div className='side-bar'>
                 <button className="btn" onClick={() => setCurrentView('posts')}>Posts</button>
                 <button className="btn" onClick={() => setCurrentView('ranglijst')}>Ranglijst</button>
                 <button className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>Maak post</button>
+            <div>
+                <dialog id="my_modal_1" className="modal" ref={dialogRef}>
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">Hello!</h3>
+                        <p className="py-4">Maak je post</p>
+                        <div className="modal-action">
+                            <form method="dialog" className='post-form' onSubmit={createPost}>
+                                <input 
+                                    type="text" 
+                                    value={newPostContent} 
+                                    placeholder='Post content...' 
+                                    onChange={(e) => setNewPostContent(e.target.value)} 
+                                    required 
+                                />
+                                <input 
+                                    type="file" 
+                                    accept="image/*,video/*" 
+                                    onChange={(e) => setNewPostFile(e.target.files[0])} 
+                                />
+                                <button className="btn" type="button" onClick={() => dialogRef.current.close()}>Close</button>
+                                <button type="submit">Post</button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+            <div className='post-item-container'>
+                {postsList.map((post) => (
+                    <Post key={post.id} post={post} onPostUpdate={getPostsList} onPostDelete={getPostsList} />
+                ))}
             </div>
             <dialog id="my_modal_1" className="modal">
                 <div className="modal-box">
