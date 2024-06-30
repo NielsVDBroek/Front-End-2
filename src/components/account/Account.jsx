@@ -151,7 +151,7 @@ function Account() {
   };
 
   return (
-    <div className="Account-container">
+    <div data-testid="account-test" className="Account-container">
       <div className="Container-user">
         <div className="back-bar">
           <button className="Back-btn" onClick={() => navigate(-1)}>&#129028;</button>

@@ -47,7 +47,7 @@ const FinalizeAccount = () => {
   };
 
   return (
-    <form className='finalize-account-container' onSubmit={handleSubmit}>
+    <form data-testid="finalize-test" className='finalize-account-container' onSubmit={handleSubmit}>
       <div className='container-account-form'>
         <div className='Name'>
           <label>Username:</label>

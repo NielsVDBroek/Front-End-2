@@ -48,7 +48,7 @@ export const Register = () => {
   return (
     <>
       <main>
-        <div className="container-regristreren">
+        <div data-testid="register-test" className="container-regristreren">
           <form className="Registrer-container">
             <h1 className="Inlog-label">Inloggen</h1>
             <div className="Register-fields">

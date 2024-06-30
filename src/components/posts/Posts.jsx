@@ -82,7 +82,7 @@ function Posts() {
     };
 
     return (
-        <div className='Container-posts'> 
+        <div data-testid="posts-test" className='Container-posts'> 
             <div>
                 <dialog id="my_modal_1" className="modal" ref={dialogRef}>
                     <div className="modal-box">
