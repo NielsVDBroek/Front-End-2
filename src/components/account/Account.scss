@@ -10,6 +10,7 @@
     flex-direction: column;
     border: solid 1px black;
     width: 50%;
+    background-color: white;
 }
 .back-bar{
     display: flex;
@@ -42,7 +43,7 @@
     border-radius: 8px;
     border: 1px solid transparent;
     font-size: 1em;
-    background-color: white;
+    background-color: unset;
     margin: 10px;
     font-weight: 500;
     font-family: inherit;
@@ -50,7 +51,11 @@
     transition: border-color 0.25s;
     width: 40px;
     height: 40px;
-} 
+}
+.Back-btn:hover{
+    background-color: unset;
+    transform: scale(1.5);
+}
 
 .Logout-btn{
     display: flex;
@@ -65,11 +70,11 @@
     font-family: inherit;
     cursor: pointer;
     transition: border-color 0.25s;
-    width: 10%;
+    width: auto;
     height: auto;
 }
 
-.Container-posts{
+.Container-posts-account{
     width: 50%;
 }
 .accont-information-form{
@@ -81,4 +86,7 @@
     width: 100%;
     height: 100px;
     resize: none;
+}
+.Button-color-green{
+    background-color: whitesmoke;
 }

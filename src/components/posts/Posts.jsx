@@ -82,7 +82,7 @@ function Posts() {
     };
 
     return (
-        <div className='Container'> 
+        <div className='Container-posts'> 
             <div>
                 <dialog id="my_modal_1" className="modal" ref={dialogRef}>
                     <div className="modal-box">
@@ -108,7 +108,7 @@ function Posts() {
                         </div>
                     </div>
                 </dialog>
-                <button className="btn" onClick={() => dialogRef.current.showModal()}>Maak post</button>
+                <button className="maak-post-btn" onClick={() => dialogRef.current.showModal()}>Maak post</button>
             </div>
             <div className='post-item-container'>
                 {postsList.map((post) => (
