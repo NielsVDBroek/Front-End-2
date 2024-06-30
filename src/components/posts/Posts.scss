@@ -1,6 +1,6 @@
-.Container{
+.Container-posts{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
     width: 100%;
     height: auto;
@@ -8,9 +8,10 @@
 }
 .post-item-container{
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    width: 85%;
-
+    width: 100%;
 }
 #my_modal_1{
     margin: auto;
@@ -29,7 +30,6 @@
 }
 .btn{
     margin-bottom: 10px;
-
 }
 .side-bar{
     display: flex;
@@ -45,5 +45,8 @@
 .media-size{
     width: 50%;
     height: auto;
+}
+.maak-post-btn{
+    width: auto;
 }
 

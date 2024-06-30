@@ -170,7 +170,7 @@ function Account() {
           <div className="Bio">
             {userInfo.bio}
           </div>
-          <button onClick={() => setIsFormVisible(!isFormVisible)}>
+          <button className="Button-color-green" onClick={() => setIsFormVisible(!isFormVisible)}>
             {isFormVisible ? "Hide Form" : "Edit Information"}
           </button>
           {isFormVisible && (
@@ -219,9 +219,9 @@ function Account() {
             </form>
           )}
         </div>
-        <button className="Logout-btn" onClick={logout}>Logout</button>
+        <button className="Logout-btn Button-color-green" onClick={logout}>Logout</button>
       </div>
-      <div className="Container-posts">
+      <div className="Container-posts-account">
         {userPostsList.length > 0 ? (
           userPostsList.map((post) => (
             <Post key={post.id} post={post} onPostDelete={() => handlePostDelete(post.id)} />

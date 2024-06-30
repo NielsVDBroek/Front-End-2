@@ -2,18 +2,33 @@
     display: flex;
     flex-direction: column;
     padding: 15px;
-    border: solid 1px black;
-    border-radius: 15px;
-    margin-bottom: 10px;
+    border: solid 1px rgb(197, 197, 197);
+    border-style: solid solid none solid;
     gap: 10px;
+    width: 100%;
+    background-color: whitesmoke;
 }
 .Button-container{
     display: flex;
     flex-direction: row;
+    gap: 10px;
 }
 .user-buttons2332{
     display: flex;
     flex-direction: row;
-    width: 100%;
     gap: 10px;
+}
+.likeBtn{
+    width: auto;
+}
+.Likes{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+.Btnpost{
+    width: auto;
+    height: auto;
 }
