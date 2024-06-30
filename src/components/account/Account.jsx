@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db, storage } from '../../config/firebase';
 import { signOut } from "firebase/auth";
-import { collection, query, where, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Post from '../post/Post';
 import './Account.scss';
@@ -43,6 +43,8 @@ function Account() {
       const userDoc = await getDoc(doc(db, "user_info", uid));
       if (userDoc.exists()) {
         setUserInfo(userDoc.data());
+      } else {
+        navigate('/finalize-account');
       }
     } catch (err) {
       console.error("Error fetching user info: ", err);

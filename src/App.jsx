@@ -8,10 +8,9 @@ import Posts from './components/posts/Posts'
 import Account from './components/account/Account';
 import FinalizeAccount from './components/finalizeAccount/FinalizeAccount';
 import ViewAccount from './components/viewAccount/ViewAccount';
+import Leaderboard from './components/leaderboard/Leaderboard';
 
 function App() {
-  const isNewUser = createContext(false);
-  const newUsername = createContext(null);
   return (
     <>
       <MainHeader/>
@@ -23,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/account" element={<Account/>}/>
           <Route path="/view-account/:userId" element={<ViewAccount />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
       </main>
     </>

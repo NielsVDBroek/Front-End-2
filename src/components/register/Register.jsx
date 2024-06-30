@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { auth, googleProvider } from '../../config/firebase';
+import { auth, googleProvider, db } from '../../config/firebase'; // Adjust the path as needed
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
-  signOut,
 } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 import './Register.scss';
 
 export const Register = () => {
@@ -14,29 +14,34 @@ export const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  console.log(auth?.currentUser?.email);
-
   const signIn = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         navigate('/finalize-account');
-        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.error(errorCode, errorMessage);
       });
   };
 
   const signInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      navigate('/finalize-account');
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const userDocRef = doc(db, 'user_info', user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        navigate('/account');
+      } else {
+        navigate('/finalize-account');
+      }
     } catch (err) {
-      console.log(err);
+      console.error('Error signing in with Google:', err);
     }
   };
 
@@ -71,7 +76,7 @@ export const Register = () => {
             <div>
               <button onClick={signIn}>Registreren</button>
             </div>
-            <button onClick={signInWithGoogle}>Sign in with Google</button>
+            <button type="button" onClick={signInWithGoogle}>Sign in with Google</button>
           </form>
         </div>
       </main>
