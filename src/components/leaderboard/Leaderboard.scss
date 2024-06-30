@@ -1,3 +1,43 @@
 #leaderboard_modal{
     margin: auto;
 }
+.Container-leaderboard{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    gap: 10px;
+}
+.container-leader{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.leaderboard-item-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.leaderboard-item{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.355);
+    padding: 5px;
+}
+.add-entry-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: auto;
+}

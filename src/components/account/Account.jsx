@@ -110,9 +110,9 @@ function Account() {
         bio: formInfo.bio,
         private: formInfo.private,
       }));
-      
+
       setIsFormVisible(false);
-      
+
       alert("Information updated successfully!");
     } catch (err) {
       console.error("Error updating user info: ", err);
