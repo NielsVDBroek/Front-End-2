@@ -88,9 +88,9 @@ function Leaderboard() {
     };
 
     return (
-        <div className='Container'>
-            <div>
-                <button className="btn" onClick={() => dialogRef.current.showModal()}>Add Entry</button>
+        <div className='Container-leaderboard'>
+            <div className='container-leader'>
+                <button className="add-entry-btn" onClick={() => dialogRef.current.showModal()}>Add Entry</button>
                 <dialog id="leaderboard_modal" className="modal" ref={dialogRef}>
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">Hello!</h3>
@@ -113,9 +113,9 @@ function Leaderboard() {
                 </dialog>
             </div>
             <div className='leaderboard-item-container'>
-                {leaderboardList.map((entry) => (
+                {leaderboardList.map((entry, index) => (
                     <div key={entry.id} className='leaderboard-item'>
-                        <p>User ID: {entry.user_id}</p>
+                        <p>Rank: {index + 1}</p> {/* Display the rank */}
                         <p>Username: {entry.username}</p>
                         <p>Time: {Math.floor(entry.time / 3600)}:{String(Math.floor((entry.time % 3600) / 60)).padStart(2, '0')}:{String(entry.time % 60).padStart(2, '0')}</p>
                     </div>

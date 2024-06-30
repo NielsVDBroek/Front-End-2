@@ -50,7 +50,6 @@ function ViewAccount() {
             <Link to="/">&#129044; Back</Link>
             {userInfo.user_name}'s Account
           </div>
-          <div className="Banner">Banner</div>
           <div className="Userinfo">
             <div className="Username">{userInfo.user_name}</div>
             <div className="Bio">{userInfo.bio}</div>
