@@ -68,7 +68,7 @@ function Posts() {
                 content: newPostContent,
                 file_url: fileUrl,
                 file_type: fileType,
-                likes: 0,
+                likes: [],
                 comments: 0,
                 date_of_creation: date.toISOString(),
             });

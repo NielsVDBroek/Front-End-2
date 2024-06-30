@@ -6,10 +6,10 @@
     gap: 3em;
 }
 .Container-user{
- display: flex;
- flex-direction: column;
- border: solid 1px black;
- width: 50%;
+    display: flex;
+    flex-direction: column;
+    border: solid 1px black;
+    width: 50%;
 }
 .back-bar{
     display: flex;
@@ -18,22 +18,19 @@
 }
 
 .Userinfo{
- padding: 10px;
-}
-.Banner{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: solid 1px black;
-    margin-bottom: 10px;
-    height: 200px;
+    padding: 10px;
 }
-.Username{
+.Profile-picture-account{
+    width: 100%;
+    display: flex;
 
 }
-.Email{
 
+.Bio{
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .Logout-btn{
     width: 10%;
@@ -74,4 +71,14 @@
 
 .Container-posts{
     width: 50%;
+}
+.accont-information-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.bio-textarea{
+    width: 100%;
+    height: 100px;
+    resize: none;
 }
