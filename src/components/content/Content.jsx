@@ -5,7 +5,7 @@ import { getDocs, collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Posts from '../posts/Posts';
 import Leaderboard from '../leaderboard/Leaderboard';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Content() {
     const [currentView, setCurrentView] = useState('posts'); // Add state to track current view
@@ -22,7 +22,7 @@ function Content() {
     };
 
     return (
-        <div className='Container-content'> 
+        <div data-testid="content-test" className='Container-content'> 
             <div className='side-bar'>
                 <button className="btn" onClick={() => setCurrentView('posts')}>Posts</button>
                 <button className="btn" onClick={() => setCurrentView('leaderboard')}>Leaderboard</button>

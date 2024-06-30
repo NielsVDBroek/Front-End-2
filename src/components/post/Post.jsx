@@ -171,7 +171,7 @@ function Post({ post, onPostUpdate, onPostDelete }) {
     };
 
     return (
-        <div className="post-item">
+        <div data-testid="post-test" className="post-item">
             <div onClick={toggleComments}>
                 <div className="post-header">
                     {authorInfo && (

@@ -43,7 +43,7 @@ function ViewAccount() {
   }, [userId]);
 
   return (
-    <div className="ViewAccount-container">
+    <div data-testid="viewaccount-test" className="ViewAccount-container">
       {userInfo && (
         <div className="Container-user">
           <div className="back-bar">

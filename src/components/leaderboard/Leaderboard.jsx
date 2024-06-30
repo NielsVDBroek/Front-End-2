@@ -87,8 +87,8 @@ function Leaderboard() {
         }
     };
 
-    return (
-        <div className='Container-leaderboard'>
+return (
+        <div data-testid="leaderboard-test" className='Container-leaderboard'>
             <div className='container-leader'>
                 <button className="add-entry-btn" onClick={() => dialogRef.current.showModal()}>Add Entry</button>
                 <dialog id="leaderboard_modal" className="modal" ref={dialogRef}>

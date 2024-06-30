@@ -14,7 +14,7 @@ function MainHeader() {
   }, []);
 
   return (
-    <header className="mainHeader">
+    <header data-testid="header-test" className="mainHeader">
         <div>
         <Link to={'/'}>Home</Link>
       </div>

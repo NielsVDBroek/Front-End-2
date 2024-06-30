@@ -37,7 +37,7 @@ const Login = () => {
   return (
     <>
       <main>
-        <div className="container-Login">
+        <div data-testid="login-test" className="container-Login">
           <div className="Login-account-button">
             <button className="Login-button-option" onClick={signInWithGoogle}>Sign in with Google</button>
             <div className="Divider-login-buttons-container">

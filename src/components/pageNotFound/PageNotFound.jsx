@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // Als een url niet bestaat wordt verbruiker doorverwezen naar deze pagina
 const PageNotFound = () => {
     return(
-        <div className='PageNotFound-container'>
+        <div data-testid="pagenotfound-test" className='PageNotFound-container'>
             <div>
                 <h1>Page not found...</h1>
             </div>
