@@ -32,7 +32,7 @@ function ViewAccount() {
           id: doc.id,
           ...doc.data()
         }));
-        setUserPostsList(postsData); // Update state with fetched posts
+        setUserPostsList(postsData);
       } catch (err) {
         console.error("Error fetching user posts: ", err);
       }
@@ -44,27 +44,35 @@ function ViewAccount() {
 
   return (
     <div data-testid="viewaccount-test" className="ViewAccount-container">
-      {userInfo && (
-        <div className="Container-user">
-          <div className="back-bar">
-            <Link to="/">&#129044; Back</Link>
-            {userInfo.user_name}'s Account
+      {userInfo ? (
+        userInfo.private ? (
+          <div className="private-account-message">
+            <p>This account is private.</p>
           </div>
-          <div className="Userinfo">
-            <div className="Username">{userInfo.user_name}</div>
-            <div className="Bio">{userInfo.bio}</div>
-            {userInfo.user_photo && (
-              <div className="Userphoto">
-                <img src={userInfo.user_photo} alt="User" />
-              </div>
-            )}
+        ) : (
+          <div className="Container-user">
+            <div className="back-bar">
+              <Link to="/">&#129044; Back</Link>
+              {userInfo.user_name}'s Account
+            </div>
+            <div className="Userinfo">
+              <div className="Username">{userInfo.user_name}</div>
+              <div className="Bio">{userInfo.bio}</div>
+              {userInfo.user_photo && (
+                <div className="Userphoto">
+                  <img src={userInfo.user_photo} alt="User" />
+                </div>
+              )}
+            </div>
+            <div className="Container-posts">
+              {userPostsList.map((post) => (
+                <Post key={post.id} post={post} />
+              ))}
+            </div>
           </div>
-          <div className="Container-posts">
-            {userPostsList.map((post) => (
-              <Post key={post.id} post={post} />
-            ))}
-          </div>
-        </div>
+        )
+      ) : (
+        <p>Loading...</p>
       )}
     </div>
   );
