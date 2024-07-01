@@ -113,6 +113,12 @@ return (
                     </div>
                 </dialog>
             </div>
+            <div className='leaderboard-header'>
+                <div className='leaderboard-container'>
+                    <h1 className='leaderboard-header-item'>Leaderboard</h1>
+                    <p className='leaderboard-header-item'>WIE HEEFT HET SNELST EEN WEDSTRIJD NEER GELEGD</p>
+                </div>
+            </div>
             <div className='leaderboard-item-container'>
                 {leaderboardList.map((entry, index) => (
                     <div key={entry.id} className='leaderboard-item'>
