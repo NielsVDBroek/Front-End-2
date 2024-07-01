@@ -1,7 +1,7 @@
 import './Posts.scss';
 import { useEffect, useState, useRef } from 'react';
 import { auth, db, storage } from '../../config/firebase';
-import { getDocs, collection, query, where } from 'firebase/firestore';
+import { getDocs, collection, query, where, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Post from '../post/Post';
 import { useNavigate, Link } from "react-router-dom";
