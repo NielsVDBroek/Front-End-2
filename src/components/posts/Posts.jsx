@@ -1,18 +1,21 @@
 import './Posts.scss';
 import { useEffect, useState, useRef } from 'react';
 import { auth, db, storage } from '../../config/firebase';
-import { getDocs, collection, addDoc } from 'firebase/firestore';
+import { getDocs, collection, query, where } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Post from '../post/Post';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Posts() {
     const [postsList, setPostsList] = useState([]);
     const [newPostContent, setNewPostContent] = useState("");
     const [newPostFile, setNewPostFile] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState({ users: [], posts: [] });
     const dialogRef = useRef(null);
 
     const postsCollectionRef = collection(db, "posts");
+    const userInfoCollectionRef = collection(db, "user_info");
 
     const navigate = useNavigate();
 
@@ -81,8 +84,35 @@ function Posts() {
         }
     };
 
+    const handleSearch = async () => {
+        try {
+            // Search users by user_name
+            const usersQuery = query(userInfoCollectionRef, where("user_name", ">=", searchQuery), where("user_name", "<=", searchQuery + "\uf8ff"));
+            const usersSnapshot = await getDocs(usersQuery);
+            const users = usersSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+            // Search posts by content
+            const postsQuery = query(postsCollectionRef, where("content", ">=", searchQuery), where("content", "<=", searchQuery + "\uf8ff"));
+            const postsSnapshot = await getDocs(postsQuery);
+            const posts = postsSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+            setSearchResults({ users, posts });
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     return (
         <div data-testid="posts-test" className='Container-posts'> 
+            <div>
+                <input 
+                    type="text" 
+                    value={searchQuery} 
+                    placeholder="Search for users or posts..." 
+                    onChange={(e) => setSearchQuery(e.target.value)} 
+                />
+                <button onClick={handleSearch}>Search</button>
+            </div>
             <div>
                 <dialog id="my_modal_1" className="modal" ref={dialogRef}>
                     <div className="modal-box">
@@ -109,6 +139,25 @@ function Posts() {
                     </div>
                 </dialog>
                 <button className="maak-post-btn" onClick={() => dialogRef.current.showModal()}>Maak post</button>
+            </div>
+            <div className='search-results'>
+                <h3>Search Results:</h3>
+                <div className='users-results'>
+                    <h4>Users:</h4>
+                    {searchResults.users.map((user) => (
+                        <div key={user.id}>
+                            <Link to={`/view-account/${user.user_id}`}>
+                                <p>{user.user_name}</p>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+                <div className='posts-results'>
+                    <h4>Posts:</h4>
+                    {searchResults.posts.map((post) => (
+                        <Post key={post.id} post={post} onPostUpdate={getPostsList} onPostDelete={getPostsList} />
+                    ))}
+                </div>
             </div>
             <div className='post-item-container'>
                 {postsList.map((post) => (
