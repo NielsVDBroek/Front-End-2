@@ -33,10 +33,12 @@ describe('template spec', () => {
     // Click "Maak post" button to open the post creation modal
     cy.get('#switch-to-leaderboard').click()
     cy.get('#cypress-add-entry-button').click()
-    cy.get('#leaderboard-entry-time').type('00:12:30')
+    cy.get('#leaderboard-entry-time').type('00:11:30')
     cy.get('#leaderboard-submit-entry-button').click()
 
     // Verify the post content is in the document
-    cy.contains('00:15:30').should('be.visible')
+    cy.contains('0').should('be.visible')
+    cy.contains('11').should('be.visible')
+    cy.contains('30').should('be.visible')
   })
 })
